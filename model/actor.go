@@ -4,4 +4,5 @@ package model
 type Actor struct {
 	ID   int
 	Name string
+	
 }
