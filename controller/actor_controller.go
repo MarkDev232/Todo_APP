@@ -27,7 +27,7 @@ func CreateActor(db *sql.DB, firstName, lastName string) error {
 
 // GetActors retrieves all actors from the database with SQL injection protection.
 func GetActors(db *sql.DB) ([]model.Actor, error) {
-	query := "SELECT actor_id, CONCAT(first_name, ' ', last_name) FROM actor LIMIT 10"
+	query := "SELECT actor_id, first_name,  last_name) FROM actor LIMIT 10"
 	rows, err := db.Query(query)
 	if err != nil {
 		return nil, err
@@ -37,7 +37,7 @@ func GetActors(db *sql.DB) ([]model.Actor, error) {
 	var actors []model.Actor
 	for rows.Next() {
 		var actor model.Actor
-		if err := rows.Scan(&actor.ID, &actor.Name); err != nil {
+		if err := rows.Scan(&actor.ID, &actor.First_Name, &actor.Last_Name); err != nil {
 			return nil, err
 		}
 		actors = append(actors, actor)

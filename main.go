@@ -55,10 +55,10 @@ func main() {
 		if err != nil {
 			log.Fatal("Error fetching actors:", err)
 		}
-		fmt.Println("ID\tName")
+		fmt.Println("ID\tFirst Name\t Last Name")
 		fmt.Println("-----------------")
 		for _, actor := range actors {
-			fmt.Printf("%d\t%s\n", actor.ID, actor.Name)
+			fmt.Printf("%d\t%s\t%s\n", actor.ID, actor.First_Name, actor.Last_Name)
 		}
 
 	case 3:
