@@ -1,12 +1,25 @@
 package main
-
 import (
 	"Todo_APP/controller"
 	"Todo_APP/database"
 	"fmt"
 	"log"
+	"os"
 )
+func askifcontinue(){
+	fmt.Println("Do you want to continue? (y/n)")
+	var choice string
+	fmt.Scan(&choice)
+	if choice == "n" {
+		os.Exit(0)
+	} else if choice == "y" {
+		main()
+	} else {
+		fmt.Println("Invalid choice!")
+		askifcontinue()
+	}
 
+}
 func main() {
 	// Establish database connection
 	db := database.Connect()
@@ -23,6 +36,7 @@ func main() {
 	_, err := fmt.Scan(&choice)
 	if err != nil {
 		log.Fatal("Invalid input:", err)
+		askifcontinue()
 	}
 
 	switch choice {
@@ -33,6 +47,7 @@ func main() {
 		fmt.Print("Enter last name: ")
 		fmt.Scan(&lastName)
 		controller.CreateActor(db, firstName, lastName)
+
 
 	case 2:
 		actors, err := controller.GetActors(db)
@@ -65,4 +80,5 @@ func main() {
 	default:
 		fmt.Println("Invalid choice!")
 	}
+	askifcontinue()
 }

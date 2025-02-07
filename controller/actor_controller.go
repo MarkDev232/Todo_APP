@@ -5,16 +5,19 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"strings"
 )
 
 // CreateActor inserts a new actor into the database.
-func CreateActor(db *sql.DB, firstName, lastName string) {
+func CreateActor(db *sql.DB, firstName, lastName string) error {
+	firstName = strings.ToUpper(firstName)
+	lastName = strings.ToUpper(lastName)
 	query := "INSERT INTO actor (first_name, last_name) VALUES (?, ?)"
 	_, err := db.Exec(query, firstName, lastName)
 	if err != nil {
-		log.Fatal("Error inserting actor:", err)
+		return fmt.Errorf("error inserting actor: %w", err)
 	}
-	fmt.Println("Actor added successfully!")
+	return nil
 }
 
 // GetActors retrieves all actors from the database.
@@ -39,6 +42,8 @@ func GetActors(db *sql.DB) ([]model.Actor, error) {
 
 // UpdateActor updates an actor's name based on the ID.
 func UpdateActor(db *sql.DB, id int, firstName, lastName string) {
+	firstName = strings.ToUpper(firstName)
+	lastName = strings.ToUpper(lastName)
 	query := "UPDATE actor SET first_name = ?, last_name = ? WHERE actor_id = ?"
 	_, err := db.Exec(query, firstName, lastName, id)
 	if err != nil {
