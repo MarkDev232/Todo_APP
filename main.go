@@ -30,6 +30,7 @@ func main() {
 	fmt.Println("2. Read Actors")
 	fmt.Println("3. Update Actor")
 	fmt.Println("4. Delete Actor")
+	fmt.Println("5. Exit")
 
 	var choice int
 	fmt.Print("Enter choice: ")
@@ -76,7 +77,9 @@ func main() {
 		fmt.Print("Enter actor ID to delete: ")
 		fmt.Scan(&id)
 		controller.DeleteActor(db, id)
-
+	case 5:
+		fmt.Println("Exiting...")
+		os.Exit(0)
 	default:
 		fmt.Println("Invalid choice!")
 	}
